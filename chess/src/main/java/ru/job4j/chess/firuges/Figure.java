@@ -25,7 +25,6 @@ public interface Figure {
         return String.format(
                 "%s.png", this.getClass().getSimpleName()
         );
-
     }
 
     /**
@@ -39,5 +38,4 @@ public interface Figure {
      * @return
      */
     Figure copy(Cell dest);
-
 }
