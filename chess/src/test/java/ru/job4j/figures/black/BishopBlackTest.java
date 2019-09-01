@@ -39,8 +39,11 @@ public class BishopBlackTest {
 
     @Test
     public void TheWayWhenObjectMoved () {
-        bishopBlack.way(Cell.C1, Cell.G5);
-        assertThat(new Cell[] {Cell.D2, Cell.E3, Cell.F4, Cell.G5}, is(bishopBlack.way(Cell.C1, Cell.G5)));
+       assertThat(new Cell[] {Cell.D2, Cell.E3, Cell.F4, Cell.G5, null, null}, is(bishopBlack.way(Cell.C1, Cell.G5)));
+    }
 
+    @Test
+    public void IfTheWayIsDiagonal () {
+        assertTrue(bishopBlack.isDiagonal(Cell.B1,Cell.D3));
     }
 }

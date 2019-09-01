@@ -28,7 +28,19 @@ public class Logic {
             Cell[] steps = this.figures[index].way(source, dest);
             if (steps.length > 0 && steps[steps.length - 1].equals(dest)) {
                 rst = true;
-                this.figures[index] = this.figures[index].copy(dest);
+                /**
+                 * Check if on the way from source to dest hasn't any figures
+                 */
+                for (int i = 0; i < steps.length; i++) {
+                    if (this.findBy(steps[i]) == -1) {
+                        System.out.println(this.findBy(steps[i]));
+                        this.figures[index] = this.figures[index].copy(dest);
+                        rst = true;
+                    }
+                    else{
+                        throw  new IllegalStateException("You can't go like this, because Cell by way isn't empty");
+                    }
+                }
             }
         }
         return rst;

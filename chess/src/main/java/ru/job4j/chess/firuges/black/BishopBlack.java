@@ -34,16 +34,29 @@ public class BishopBlack implements Figure {
          */
         int size = 6;
         Cell[] steps = new Cell[size];
-        int deltaX = source.x;
-        int deltaY = source.y;
+        /**
+         * Define Deltas - is difference between dest and source positions.
+         */
+        int deltaX = dest.x > source.x ? 1 : -1;
+        int deltaY = dest.y > source.y ? 1 : -1;
         for (int index = 0; index < size; index++) {
-            if(index == 0) {
-                steps[index] = source;
+            /**
+             * Set new positions
+             */
+            int x = source.x + (index + 1) * deltaX;
+            int y = source.y + (index + 1) * deltaY;
+            /**
+             * Set to array positions via findCell(x, y) method
+             */
+            steps[index] = position.findCell(x, y);
+            /**
+             * if we found the dest Cell - brake and return steps array with way cells.
+             */
+            if (position.findCell(x,y) == dest) {
+                return steps;
             }
-            steps[index] = steps[deltaX];
         }
-        return steps;
-        //return new Cell[] { dest };
+       return null;
     }
 
     @Override
@@ -58,7 +71,17 @@ public class BishopBlack implements Figure {
      * @return
      */
     public boolean isDiagonal(Cell source, Cell dest) {
-
+        /**
+         * Get Cell counter by steps
+         */
+        int countSteps = dest.x - source.x;
+        System.out.println(countSteps);
+        /**
+         * If difference between dest and source coordinates not equals countSteps Cell - it's not Diagonal
+         */
+       if ((dest.x - source.x) % countSteps == 0 && (dest.y - source.y) % countSteps == 0) {
+           return true;
+       }
        return false;
     }
 }
