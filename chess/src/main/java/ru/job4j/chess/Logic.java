@@ -27,17 +27,25 @@ public class Logic {
         if (index != -1) {
             Cell[] steps = this.figures[index].way(source, dest);
             if (steps.length > 0 && steps[steps.length - 1].equals(dest)) {
-                rst = true;
+                //rst = true;
                 /**
                  * Check if on the way from source to dest hasn't any figures
                  */
                 for (int i = 0; i < steps.length; i++) {
                     if (this.findBy(steps[i]) == -1) {
-                        System.out.println(this.findBy(steps[i]));
+                        System.out.println("This cell is empty, if result == -1: " + this.findBy(steps[i]));
+                        /**
+                         * Copy new position figure to current this.figures[index]
+                         */
                         this.figures[index] = this.figures[index].copy(dest);
+                        /**
+                         * Delete previous position figure from this.figures[index]
+                         * And now previous Cell will empty for new moving
+                         */
+                        this.figures[index--] = null;
                         rst = true;
                     }
-                    else{
+                    else {
                         throw  new IllegalStateException("You can't go like this, because Cell by way isn't empty");
                     }
                 }

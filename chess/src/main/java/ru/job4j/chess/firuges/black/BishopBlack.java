@@ -30,9 +30,16 @@ public class BishopBlack implements Figure {
             throw  new IllegalStateException(String.format("Could not move by diagonal from %s to %s", source, dest));
         }
         /**
-         * Max length of chess diagonal
+         * Find length of chess Cells diagonal
          */
-        int size = 6;
+        int size = dest.x - source.x;
+        /**
+         * check if size  is < 0,
+         * make from negative value -> positive value
+         */
+        if (size < 0) {
+            size = -size;
+        }
         Cell[] steps = new Cell[size];
         /**
          * Define Deltas - is difference between dest and source positions.
