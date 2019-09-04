@@ -27,28 +27,16 @@ public class Logic {
         if (index != -1) {
             Cell[] steps = this.figures[index].way(source, dest);
             if (steps.length > 0 && steps[steps.length - 1].equals(dest)) {
-                //rst = true;
                 /**
-                 * Check if on the way from source to dest hasn't any figures
+                 * If all Cells on the Figure way are empty.
                  */
-                for (int i = 0; i < steps.length; i++) {
-                    if (this.findBy(steps[i]) == -1) {
-                        System.out.println("This cell is empty, if result == -1: " + this.findBy(steps[i]));
-                        /**
-                         * Copy new position figure to current this.figures[index]
-                         */
-                        this.figures[index] = this.figures[index].copy(dest);
-                        /**
-                         * Delete previous position figure from this.figures[index]
-                         * And now previous Cell will empty for new moving
-                         */
-                        this.figures[index--] = null;
-                        rst = true;
-                    }
-                    else {
-                        throw  new IllegalStateException("You can't go like this, because Cell by way isn't empty");
-                    }
-                }
+               if ( checkForEmptyCell(steps) ) {
+                   /**
+                    * Copy new position figure to current this.figures[index]
+                    */
+                   this.figures[index] = this.figures[index].copy(dest);
+                   rst = true;
+               }
             }
         }
         return rst;
@@ -59,6 +47,38 @@ public class Logic {
             this.figures[position] = null;
         }
         this.index = 0;
+    }
+
+    /**
+     * Check if all Cells on Figure way are empty
+     * @return true or false.
+     */
+    public boolean checkForEmptyCell(Cell[] steps) {
+        /**
+         * Counter fot Empty Cells
+         */
+        int countEmptyCells = 0;
+
+        /**
+         * Check if on the way from source to dest hasn't any figures
+         */
+        for (int i = 0; i < steps.length; i++) {
+            if (this.findBy(steps[i]) == -1) {
+                /**
+                 * Calculating all empty Cell on Figure way
+                 */
+                countEmptyCells ++;
+            }
+        }
+        /**
+         * If all Cells on the Figure way are empty.
+         */
+        if (countEmptyCells == steps.length) {
+           return true;
+        }
+        else {
+            throw  new IllegalStateException("You can't go like this, because Cell by way isn't empty");
+        }
     }
 
     private int findBy(Cell cell) {
