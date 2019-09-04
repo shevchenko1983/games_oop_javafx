@@ -58,7 +58,6 @@ public class Logic {
          * Counter fot Empty Cells
          */
         int countEmptyCells = 0;
-
         /**
          * Check if on the way from source to dest hasn't any figures
          */
@@ -71,14 +70,12 @@ public class Logic {
             }
         }
         /**
-         * If all Cells on the Figure way are empty.
+         * If one of the Cells on the Figure way aren't empty -> throw IllegalStateException
          */
-        if (countEmptyCells == steps.length) {
-           return true;
-        }
-        else {
+        if (countEmptyCells != steps.length) {
             throw  new IllegalStateException("You can't go like this, because Cell by way isn't empty");
         }
+        return true;
     }
 
     private int findBy(Cell cell) {
